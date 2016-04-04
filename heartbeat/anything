@@ -117,7 +117,7 @@ anything_stop() {
 	if anything_status
 	then
                 pid=`getpid $pidfile`
-                kill $pid
+		        pkill -P $pid
                 i=0
                 while [ $i -lt $stop_timeout ]
                 do
@@ -130,7 +130,7 @@ anything_stop() {
                         i=$((i+1))
                 done
                 ocf_log warn "Stop with SIGTERM failed/timed out, now sending SIGKILL."
-                kill -s 9 $pid
+                pkill -9 -P $pid
                 rm -f $pidfile
                 if ! anything_status
                 then
